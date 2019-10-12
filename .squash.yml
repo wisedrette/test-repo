@@ -1,0 +1,33 @@
+deployments:
+  pipelines:
+    dockerimage: ubuntu:trusty
+    pipelines:
+      - website:
+          build_steps:
+            - DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y postgresql-9.6 postgresql-client-9.6 postgresql-contrib-9.6
+            - cd /code/website
+            - service postgres start
+            - psql -c 'create database test_db;' -U postgres
+            - pip install -r website/requirements.txt
+          scripts:
+            - POSTGRES_HOST=localhost POSTGRES_USER=postgres POSTGRES_DB=test_db coverage run ./manage.py test --verbosity 2 && coverage report --fail-under=30
+      - lua:
+          build_steps:
+            - apt-get update && apt-get -y install sudo
+            - useradd -m docker && echo "docker:docker" | chpasswd && adduser docker sudo
+            - echo "docker ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+            - su docker
+            - sudo apt-get update && sudo apt-get install -y luajit luarocks git build-essential
+            - sudo luarocks install luafilesystem
+            - sudo luarocks install luassert 1.7.11-0
+            - sudo luarocks install busted 2.0.rc13-0
+            - wget -qO - https://openresty.org/package/pubkey.gpg | sudo apt-key add -
+            - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+            - sudo apt-get -y install software-properties-common
+            - sudo touch /etc/apt/sources.list.d/openresty.list
+            - echo "deb http://openresty.org/package/ubuntu $(lsb_release -sc) main" | sudo tee -a /etc/apt/sources.list.d/openresty.list
+            - sudo apt-get update -o Dir::Etc::sourcelist=/etc/apt/sources.list.d/openresty.list
+            - sudo apt-get install -y openresty
+            - sudo luarocks install lua-resty-busted
+          scripts:
+            - busted -v
