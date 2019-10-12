@@ -1,6 +1,7 @@
 deployments:
   pipelines:
     dockerimage: ubuntu:trusty
+    squash_pr_comments: false
     pipelines:
       - website:
           build_steps:
@@ -8,7 +9,7 @@ deployments:
             - cd /code/mysite
             - service postgres start
             - psql -c 'create database test_db;' -U postgres
-            - pip install -r mysite/requirements.txt
+            - pip install -r ./requirements.txt
           scripts:
             - POSTGRES_HOST=localhost POSTGRES_USER=postgres POSTGRES_DB=test_db coverage run ./manage.py test --verbosity 2 && coverage report --fail-under=30
       - lua:
