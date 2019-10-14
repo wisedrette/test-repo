@@ -30,8 +30,8 @@ deployments:
             - apt-get install -y openresty
             - luarocks install luafilesystem
             - luarocks install luassert 1.7.11-0
-            - luarocks install busted
             - luarocks install lua-resty-busted
+            - luarocks install busted
           scripts:
             - busted --version
             - ls -la
