@@ -21,9 +21,6 @@ deployments:
             - useradd -m docker && echo "docker:docker" | chpasswd && adduser docker sudo
             - 'echo "docker ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers'
             - apt-get update && sudo apt-get install -y luajit luarocks git build-essential
-            - luarocks install luafilesystem
-            - luarocks install luassert 1.7.11-0
-            - luarocks install busted 2.0.rc13-0
             - wget -qO - https://openresty.org/package/pubkey.gpg | apt-key add -
             - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
             - apt-get -y install software-properties-common
@@ -31,7 +28,11 @@ deployments:
             - echo "deb http://openresty.org/package/ubuntu $(lsb_release -sc) main" >> /etc/apt/sources.list.d/openresty.list
             - apt-get update -o Dir::Etc::sourcelist=/etc/apt/sources.list.d/openresty.list
             - apt-get install -y openresty
+            - su docker
+            - luarocks install luafilesystem
+            - luarocks install luassert 1.7.11-0
+            - luarocks install busted 2.0.rc13-0
             - luarocks install lua-resty-busted
           scripts:
-            - busted -v
+            - su docker busted -v
             - ls -la
