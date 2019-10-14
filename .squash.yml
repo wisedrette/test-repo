@@ -19,19 +19,18 @@ deployments:
             - apt-get update && apt-get -y install sudo
             - useradd -m docker && echo "docker:docker" | chpasswd && adduser docker sudo
             - 'echo "docker ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers'
-            - su docker
-            - sudo apt-get update && sudo apt-get install -y luajit luarocks git build-essential
-            - sudo luarocks install luafilesystem
-            - sudo luarocks install luassert 1.7.11-0
-            - sudo luarocks install busted 2.0.rc13-0
-            - wget -qO - https://openresty.org/package/pubkey.gpg | sudo apt-key add -
-            - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-            - sudo apt-get -y install software-properties-common
-            - sudo touch /etc/apt/sources.list.d/openresty.list
-            - echo "deb http://openresty.org/package/ubuntu $(lsb_release -sc) main" | sudo tee -a /etc/apt/sources.list.d/openresty.list
-            - sudo apt-get update -o Dir::Etc::sourcelist=/etc/apt/sources.list.d/openresty.list
-            - sudo apt-get install -y openresty
-            - sudo luarocks install lua-resty-busted
+            - apt-get update && sudo apt-get install -y luajit luarocks git build-essential
+            - luarocks install luafilesystem
+            - luarocks install luassert 1.7.11-0
+            - luarocks install busted 2.0.rc13-0
+            - wget -qO - https://openresty.org/package/pubkey.gpg | apt-key add -
+            - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+            - apt-get -y install software-properties-common
+            - touch /etc/apt/sources.list.d/openresty.list
+            - echo "deb http://openresty.org/package/ubuntu $(lsb_release -sc) main" >> /etc/apt/sources.list.d/openresty.list
+            - apt-get update -o Dir::Etc::sourcelist=/etc/apt/sources.list.d/openresty.list
+            - apt-get install -y openresty
+            - luarocks install lua-resty-busted
           scripts:
             - busted -v
             - ls -la
