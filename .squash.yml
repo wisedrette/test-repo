@@ -5,6 +5,8 @@ deployments:
     pipelines:
       - website:
           build_steps:
+            - echo "deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main" > /etc/apt/sources.list.d/pgdg.list
+            - wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
             - DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y postgresql-9.4   postgresql-client-9.4 postgresql-contrib-9.4
             - cd /code/mysite
             - service postgres start
