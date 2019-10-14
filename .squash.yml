@@ -16,7 +16,7 @@ deployments:
           build_steps:
             - apt-get update && apt-get -y install sudo
             - useradd -m docker && echo "docker:docker" | chpasswd && adduser docker sudo
-            - echo "docker ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+            - 'echo "docker ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers'
             - su docker
             - sudo apt-get update && sudo apt-get install -y luajit luarocks git build-essential
             - sudo luarocks install luafilesystem
