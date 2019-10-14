@@ -17,9 +17,6 @@ deployments:
             - cd /code/mysite; POSTGRES_HOST=localhost POSTGRES_USER=postgres POSTGRES_DB=test_db coverage run ./manage.py test --verbosity 2 && coverage report --fail-under=30
       - lua:
           build_steps:
-            - apt-get update && apt-get -y install sudo
-            - useradd -m docker && echo "docker:docker" | chpasswd && adduser docker sudo
-            - 'echo "docker ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers'
             - apt-get update && sudo apt-get install -y luajit luarocks git build-essential
             - wget -qO - https://openresty.org/package/pubkey.gpg | apt-key add -
             - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
@@ -29,9 +26,8 @@ deployments:
             - apt-get update -o Dir::Etc::sourcelist=/etc/apt/sources.list.d/openresty.list
             - apt-get install -y openresty
             - luarocks install luafilesystem
-            - luarocks install luassert 1.7.11-0
-            - luarocks install lua-resty-busted
             - luarocks install busted
+            - luarocks install lua-resty-busted
           scripts:
             - busted --version
             - ls -la
