@@ -4,7 +4,7 @@ deployments:
     squash_pr_comments: false
     pipelines:
       - website:
-          vm_size: abc
+          vm_size: qwe
           build_steps:
             - DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y --allow-unauthenticated postgresql-9.6 postgresql-client-9.6 postgresql-contrib-9.6
             - cd /code/mysite
