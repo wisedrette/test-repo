@@ -32,3 +32,5 @@ deployments:
             - luarocks install lua-resty-busted
           scripts:
             - busted --version
+            - busted -l test.lua
+            - cd /code && SMTH=0 busted -v --defer-print test.lua
