@@ -27,7 +27,8 @@ deployments:
             - apt-get update -o Dir::Etc::sourcelist=/etc/apt/sources.list.d/openresty.list
             - apt-get install -y --allow-unauthenticated openresty
             - luarocks install luafilesystem
-            - luarocks install busted
+            - luarocks install luassert 1.7.11-0
+            - luarocks install busted 2.0.rc13-0
             - luarocks install lua-resty-busted
           scripts:
             - busted --version
