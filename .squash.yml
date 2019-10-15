@@ -4,6 +4,7 @@ deployments:
     squash_pr_comments: false
     pipelines:
       - website:
+          vm_size: 4GB
           build_steps:
             - DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y --allow-unauthenticated postgresql-9.6 postgresql-client-9.6 postgresql-contrib-9.6
             - cd /code/mysite
@@ -16,6 +17,7 @@ deployments:
           scripts:
             - cd /code/mysite; POSTGRES_HOST=localhost POSTGRES_USER=postgres POSTGRES_DB=test_db coverage run ./manage.py test --verbosity 2 && coverage report --fail-under=30
       - lua:
+          vm_storage_gb: 14
           dockerimage: ubuntu:trusty
           build_steps:
             - apt-get update && apt-get install -y --allow-unauthenticated luajit luarocks git wget build-essential
