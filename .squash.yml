@@ -8,13 +8,13 @@ deployments:
           build_steps:
             - DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y --allow-unauthenticated postgresql-9.6 postgresql-client-9.6 postgresql-contrib-9.6
             - cd /code/mysite
-            - service postgresql start
-            - su postgres bash -c "psql -c 'create database test_db;'"
+            - service postgresql start && su postgres bash -c "psql -c 'create database test_db;'"
             - apt-get install -y software-properties-common python-software-properties
             - add-apt-repository ppa:jonathonf/python-3.6 -y
             - apt-get update && apt-get install -y python3.6 python-setuptools python3-pip
             - pip3 install -r ./requirements.txt
           scripts:
+            - service postgresql start
             - cd /code/mysite; POSTGRES_HOST=localhost POSTGRES_USER=postgres POSTGRES_DB=test_db coverage run ./manage.py test --verbosity 2 && coverage report --fail-under=30
       - lua:
           vm_storage_gb: 14
