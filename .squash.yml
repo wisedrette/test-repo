@@ -3,14 +3,22 @@ deployments:
     dockerimage: ubuntu:trusty
     pipelines:
       - website:
+          dockerimage: ubuntu:xenial
           build_steps:
-            - DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y postgresql-9.6 postgresql-client-9.6 postgresql-contrib-9.6
+            - apt-get update && apt-get install -y git curl
+            - DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y --allow-unauthenticated postgresql postgresql-contrib libpq-dev pgadmin3
             - cd /code/mysite
-            - service postgres start
-            - psql -c 'create database test_db;' -U postgres
-            - pip install -r ./requirements.txt
+            - service postgresql start
+            - su postgres bash -c "psql -c 'create database test_db;'"
+            - su postgres bash -c "psql -c "\""alter user postgres with password 'postgres';"\"""
+            - apt-get install -y software-properties-common python-software-properties
+            - add-apt-repository ppa:deadsnakes/ppa -y
+            - apt-get update && apt-get install -y python3.6 python-setuptools python3.6-dev
+            - curl https://bootstrap.pypa.io/get-pip.py | python3.6
+            - pip3 install --upgrade setuptools
+            - pip3 install -r ./requirements.txt
           scripts:
-            - POSTGRES_HOST=localhost POSTGRES_USER=postgres POSTGRES_DB=test_db coverage run ./manage.py test --verbosity 2 && coverage report --fail-under=30
+            - POSTGRES_HOST=localhost POSTGRES_USER=postgres POSTGRES_PASSWORD=postgres POSTGRES_DB=test_db coverage run ./manage.py test --verbosity 2 && coverage report --fail-under=30
       - lua:
           build_steps:
             - apt-get update && apt-get -y install sudo
