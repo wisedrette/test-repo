@@ -1,9 +1,11 @@
 deployments:
   pipelines:
     dockerimage: ubuntu:trusty
+    always_build_images: true
     pipelines:
       - website:
           dockerimage: ubuntu:xenial
+          always_build_images: false
           build_steps:
             - apt-get update && apt-get install -y git curl
             - DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y --allow-unauthenticated postgresql postgresql-contrib libpq-dev pgadmin3
