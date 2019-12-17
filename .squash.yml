@@ -1,38 +1,21 @@
 deployments:
   pipelines:
-    dockerimage: ubuntu:xenial
-    squash_pr_comments: false
+    dockerimage: ubuntu:trusty
     pipelines:
       - website:
+          dockerimage: ubuntu:xenial
           build_steps:
-            - DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y --allow-unauthenticated postgresql-9.6 postgresql-client-9.6 postgresql-contrib-9.6
-            - cd /code/mysite
+            - apt-get update && apt-get install -y git curl
+            - DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y --allow-unauthenticated postgresql postgresql-contrib libpq-dev pgadmin3
+            - cd /code/mysite/
             - service postgresql start && su postgres bash -c "psql -c 'create database test_db;'"
+            - service postgresql start && su postgres bash -c "psql -c "\""alter user postgres with password 'postgres';"\"""
             - apt-get install -y software-properties-common python-software-properties
-            - add-apt-repository ppa:jonathonf/python-3.6 -y
-            - apt-get update && apt-get install -y python3.6 python-setuptools python3-pip
+            - add-apt-repository ppa:deadsnakes/ppa -y
+            - apt-get update && apt-get install -y python3.6 python-setuptools python3.6-dev
+            - curl https://bootstrap.pypa.io/get-pip.py | python3.6
+            - pip3 install --upgrade setuptools
             - pip3 install -r ./requirements.txt
           scripts:
             - service postgresql start
-            - cd /code/mysite; POSTGRES_HOST=localhost POSTGRES_USER=postgres POSTGRES_DB=test_db coverage run ./manage.py test --verbosity 2 && coverage report --fail-under=30
-      - lua:
-          vm_storage_gb: 14
-          smth: abcd
-          dockerimage: ubuntu:trusty
-          build_steps:
-            - apt-get update && apt-get install -y --allow-unauthenticated luajit luarocks git wget build-essential
-            - wget -qO - https://openresty.org/package/pubkey.gpg | apt-key add -
-            - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-            - apt-get install -y --allow-unauthenticated software-properties-common
-            - touch /etc/apt/sources.list.d/openresty.list
-            - echo "deb http://openresty.org/package/ubuntu $(lsb_release -sc) main" >> /etc/apt/sources.list.d/openresty.list
-            - apt-get update -o Dir::Etc::sourcelist=/etc/apt/sources.list.d/openresty.list
-            - apt-get install -y --allow-unauthenticated openresty
-            - luarocks install luafilesystem
-            - luarocks install luassert 1.7.11-0
-            - luarocks install busted 2.0.rc13-0
-            - luarocks install lua-resty-busted
-          scripts:
-            - busted --version
-            - cd /code && busted -l test.lua
-            - cd /code && SMTH=0 busted -v --defer-print test.lua
+            - cd /code/mysite && POSTGRES_HOST=localhost POSTGRES_USER=postgres POSTGRES_PASSWORD=postgres POSTGRES_DB=test_db coverage run ./manage.py test --verbosity 2 && coverage report --fail-under=30
