@@ -42,6 +42,6 @@ deployments:
       - test:
           dockerimage: python:3.6
           build_steps:
-            - apt-get update && apt-get install -y git curl
+            - which apt-get
           scripts:
             - echo true
