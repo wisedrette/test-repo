@@ -31,6 +31,6 @@ deployments:
       - smth:
           dockerimage: nginx:latest
           build_steps:
-            - echo test
+            - apt-get install abcde
           scripts:
             - echo true
