@@ -47,7 +47,6 @@ deployments:
       - test1:
           depends_on_group: abc
           group_id: cde
-          scripts:
       - test2:
           group_id: a123
           dockerimage: nginx:latest
