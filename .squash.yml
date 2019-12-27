@@ -30,5 +30,7 @@ deployments:
             - echo true
       - smth:
           dockerimage: nginx:latest
+          build_steps:
+            - echo test
           scripts:
             - echo true
