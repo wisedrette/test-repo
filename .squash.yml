@@ -19,3 +19,16 @@ deployments:
           scripts:
             - service postgresql start
             - cd /code/mysite && POSTGRES_HOST=localhost POSTGRES_USER=postgres POSTGRES_PASSWORD=postgres POSTGRES_DB=test_db coverage run ./manage.py test --verbosity 2 && coverage report --fail-under=30
+  app:
+    dockerimage: ubuntu:trusty
+    pipelines:
+      - test:
+          dockerimage: python:latest
+          build_steps:
+            - apt-get update && apt-get install -y git curl         
+          scripts:
+            - echo true
+      - smth:
+          dockerimage: nginx:latest
+          scripts:
+            - echo true
