@@ -22,15 +22,34 @@ deployments:
   app:
     dockerimage: ubuntu:trusty
     pipelines:
-      - test:
+      - test0:
+          depends_on_group: abc
+          group_id: cde
+          dockerimage: python:latest
+          build_steps:
+            - apt-get update && apt-get install -y git curl         
+          scripts:
+            - echo true
+      - web:
+          group_id: abc
           dockerimage: python:latest
           build_steps:
             - apt-get update && apt-get install -y git curl         
           scripts:
             - echo true
       - smth:
+          group_id: abc
           dockerimage: nginx:latest
           build_steps:
             - apt-get install abcde
+          scripts:
+            - echo true
+      - test1:
+          depends_on_group: abc
+          group_id: cde
+          scripts:
+      - test2:
+          group_id: a123
+          dockerimage: nginx:latest
           scripts:
             - echo true
