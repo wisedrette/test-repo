@@ -10,13 +10,6 @@ deployments:
             - apt-get update && apt-get install -y git curl         
           scripts:
             - echo true
-      - web:
-          group_id: abc
-          dockerimage: python:latest
-          build_steps:
-            - apt-get update && apt-get install -y git curl         
-          scripts:
-            - echo true
       - smth:
           group_id: abc
           dockerimage: nginx:latest
@@ -31,5 +24,5 @@ deployments:
       - test-no-longer-failing-smth-long-long-long-to-be-truncated:
           dockerimage: nginx:latest
           scripts:
-            - echo
+            - sleep 15 && echo success
   
