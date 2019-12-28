@@ -41,13 +41,14 @@ deployments:
           group_id: abc
           dockerimage: nginx:latest
           build_steps:
-            - apt-get install abcde
+            - apt-get install -y curl
           scripts:
             - echo true
       - test1:
+          dockerimage: odoo:latest
           depends_on_group: abc
           group_id: cde
-      - test2:
+      - test-failing:
           dockerimage: nginx:latest
           scripts:
-            - echo true
+            - abc
