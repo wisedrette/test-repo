@@ -21,7 +21,7 @@ deployments:
           group_id: abc
           dockerimage: nginx:latest
           build_steps:
-            - apt-get install -y curl
+            - apt-get update && apt-get install -y curl
           scripts:
             - echo true
       - test-not-parsed-without-scripts:
