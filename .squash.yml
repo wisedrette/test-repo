@@ -28,7 +28,8 @@ deployments:
           dockerimage: odoo:latest
           depends_on_group: abc
           group_id: cde
-      - test-failing-smth-long-long-long-to-be-truncated:
+      - test-no-longer-failing-smth-long-long-long-to-be-truncated:
           dockerimage: nginx:latest
           scripts:
-            - abc
+            - echo
+  
