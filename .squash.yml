@@ -2,7 +2,7 @@ deployments:
   app:
     dockerimage: ubuntu:trusty
     pipelines:
-      - test with spaces very longish here:
+      - test with spaces:
           depends_on_group: abc
           group_id: cde
           dockerimage: python:latest
