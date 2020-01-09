@@ -25,6 +25,7 @@ deployments:
             - echo true
       - smth:
           group_id: qwe
+          depends_on_group: cde
           dockerimage: nginx:latest
           build_steps:
             - apt-get update && apt-get install -y curl
