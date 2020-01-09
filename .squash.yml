@@ -2,10 +2,18 @@ deployments:
   app:
     dockerimage: ubuntu:trusty
     pipelines:
+      - test:
+          depends_on_group: qwe
+          group_id: abc
+          dockerimage: python:latest
+          build_steps:
+            - apt-get update && apt-get install -y git curl         
+          scripts:
+            - echo true
       - test-no-longer-failing-smth-long-long-long-to-be-truncated:
           dockerimage: nginx:latest
           scripts:
-            - false
+            - smth
             - echo "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
       - test:
           depends_on_group: abc
@@ -16,7 +24,7 @@ deployments:
           scripts:
             - echo true
       - smth:
-          group_id: abc
+          group_id: qwe
           dockerimage: nginx:latest
           build_steps:
             - apt-get update && apt-get install -y curl
