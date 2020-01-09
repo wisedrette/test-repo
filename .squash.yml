@@ -5,7 +5,7 @@ deployments:
       - test-no-longer-failing-smth-long-long-long-to-be-truncated:
           dockerimage: nginx:latest
           scripts:
-            - sleep 3000
+            - false
             - echo "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
       - test:
           depends_on_group: abc
@@ -22,6 +22,7 @@ deployments:
             - apt-get update && apt-get install -y curl
           scripts:
             - echo true
+            - sleep 20
       - test-not-parsed-without-scripts:
           dockerimage: odoo:latest
           depends_on_group: abc
