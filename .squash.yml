@@ -4,7 +4,7 @@ deployments:
     pipelines:
       - test:
           depends_on_group: qwe
-          group_id: abc
+          group_id: cde
           dockerimage: python:latest
           build_steps:
             - apt-get update && apt-get install -y git curl         
@@ -15,14 +15,6 @@ deployments:
           scripts:
             - false
             - echo "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
-      - test2:
-          depends_on_group: abc
-          group_id: cde
-          dockerimage: python:latest
-          build_steps:
-            - apt-get update && apt-get install -y git curl         
-          scripts:
-            - echo true
       - smth:
           group_id: qwe
           depends_on_group: cde
