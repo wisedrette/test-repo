@@ -33,8 +33,7 @@ deployments:
             - echo true
             - sleep 20
       - circular:
-          group_id: asd
-          depends_on_group: asd
+          group_id: qwe
           dockerimage: nginx:latest
           build_steps:
             - apt-get update && apt-get install -y curl
