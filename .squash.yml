@@ -45,4 +45,3 @@ deployments:
           dockerimage: odoo:latest
           depends_on_group: abc
           group_id: cde
-  
