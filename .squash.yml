@@ -26,7 +26,7 @@ deployments:
             - sleep 20
       - a2:
           group_id: abc
-          depends_on_group: cde
+          depends_on_group: bbb
           dockerimage: nginx:latest
           build_steps:
             - apt-get update && apt-get install -y curl
@@ -52,6 +52,7 @@ deployments:
             - sleep 20
       - test-not-parsed-without-scripts:
           dockerimage: odoo:latest
+          depends_on_group: cde
           group_id: bbb
           scripts:
             - echo true
