@@ -33,6 +33,15 @@ deployments:
           scripts:
             - echo true
             - sleep 20
+      - a3:
+          group_id: abc
+          depends_on_group: bbb
+          dockerimage: nginx:latest
+          build_steps:
+            - apt-get update && apt-get install -y curl
+          scripts:
+            - echo true
+            - sleep 20
       - circular:
           group_id: qwe
           dockerimage: nginx:latest
@@ -43,8 +52,7 @@ deployments:
             - sleep 20
       - test-not-parsed-without-scripts:
           dockerimage: odoo:latest
-          depends_on_group: abc
-          group_id: cde
+          group_id: bbb
           scripts:
             - echo true
             - sleep 20
