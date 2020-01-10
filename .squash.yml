@@ -17,6 +17,15 @@ deployments:
             - echo "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
       - smth:
           group_id: qwe
+          depends_on_group: abc
+          dockerimage: nginx:latest
+          build_steps:
+            - apt-get update && apt-get install -y curl
+          scripts:
+            - echo true
+            - sleep 20
+      - a2:
+          group_id: abc
           depends_on_group: cde
           dockerimage: nginx:latest
           build_steps:
@@ -36,3 +45,6 @@ deployments:
           dockerimage: odoo:latest
           depends_on_group: abc
           group_id: cde
+          scripts:
+            - echo true
+            - sleep 20
