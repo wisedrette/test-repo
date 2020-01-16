@@ -8,3 +8,4 @@ deployments:
             - apt-get update && apt-get install -y git curl
           scripts:
             - echo "true"
+            - ls -la
