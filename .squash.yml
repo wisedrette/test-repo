@@ -9,4 +9,3 @@ deployments:
           scripts:
             - echo "true"
             - ls -la
-
