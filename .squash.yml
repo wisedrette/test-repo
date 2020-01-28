@@ -1,40 +1,21 @@
 deployments:
-  app:
-    dockerimage: ubuntu:trusty
+  nodocker:
+    dockerimage: nginx
+    squash-cmd--aws-credentials:
+      aws_access_key: $ACCESS_KEY
+      aws_secret_key: $SECRET_KEY
+      region: us-east-2
     pipelines:
-      - test:
-          depends_on_group: qwe
-          group_id: cde
-          dockerimage: python:latest
-          build_steps:
-            - apt-get update && apt-get install -y git curl         
+      - primary:
+          group_id: api
           scripts:
             - echo true
-      - test-no-longer-failing-smth-long-long-long-to-be-truncated:
-          dockerimage: nginx:latest
+      - next:
+          group_id: api
           scripts:
-            - false
-            - echo "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
-      - smth:
-          group_id: qwe
-          depends_on_group: cde
-          dockerimage: nginx:latest
-          build_steps:
-            - apt-get update && apt-get install -y curl
+            - sleep 11; ls -la
+      - dependency:
+          group_id: app
+          depends_on_group: api
           scripts:
-            - echo true
-            - sleep 20
-      - circular:
-          group_id: qwe
-          dockerimage: nginx:latest
-          build_steps:
-            - apt-get update && apt-get install -y curl
-          scripts:
-            - echo true
-            - sleep 20
-      - test-not-parsed-without-scripts:
-          dockerimage: odoo:latest
-          depends_on_group: abc
-          group_id: cde
-          scripts:
-            - false
+            - ls -la
