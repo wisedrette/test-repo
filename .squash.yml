@@ -1,6 +1,8 @@
 deployments:
   pipelines:
     dockerimage: ubuntu:trusty
+    build_policy:
+      restrict_branches: branch
     pipelines:
       - website:
           dockerimage: ubuntu:xenial
