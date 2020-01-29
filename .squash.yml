@@ -2,6 +2,8 @@ deployments:
   pipelines:
     dockerimage: ubuntu:trusty
     build_policy:
+      triggers:
+        - pr
       restrict_branches: branch
     pipelines:
       - website:
