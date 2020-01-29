@@ -1,7 +1,7 @@
 deployments:
   pipelines:
     build_policy:
-      allow_branches: config
+      allow_branches: *
     dockerimage: ubuntu:trusty
     pipelines:
       - website:
@@ -16,7 +16,7 @@ deployments:
   app:
     dockerimage: nginx
     build_policy:
-      allow_branches: config, build_policy
+      restrict_branches: config, build_policy
       triggers: 
         - commit
     pipelines:
