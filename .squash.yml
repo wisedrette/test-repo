@@ -1,7 +1,7 @@
 deployments:
   pipelines:
     build_policy:
-      allow_branches: '*'
+      allow_branches: "*"
     dockerimage: ubuntu:trusty
     pipelines:
       - website:
