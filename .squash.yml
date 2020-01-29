@@ -15,7 +15,7 @@ deployments:
   app:
     dockerimage: nginx
     build_policy:
-      allow_branches: config
+      allow_branches: config, build_policy
       triggers: 
         - commit
     pipelines:
@@ -28,4 +28,3 @@ deployments:
             - which apt-get
           scripts:
             - true
-
