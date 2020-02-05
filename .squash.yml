@@ -26,3 +26,4 @@ deployments:
                 arguments: |
                  --quiet  \
                  --cache-control "max-age=11300"
+
