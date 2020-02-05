@@ -1,25 +1,28 @@
 deployments:
-  pipelines:
-    dockerimage: ubuntu:trusty
-    build_policy:
-      triggers:
-        - pr
-      restrict_branches: branch
+  nodocker:
+    dockerimage: nginx
+    squash-cmd--aws-credentials:
+      aws_access_key: $ACCESS_KEY
+      aws_secret_key: $SECRET_KEY
+      region: us-east-2
     pipelines:
-      - website:
-          dockerimage: ubuntu:xenial
-          build_steps:
-            - apt-get update && apt-get install -y git curl
-            - DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y --allow-unauthenticated postgresql postgresql-contrib libpq-dev pgadmin3
-            - cd /code/mysite/
-            - service postgresql start && su postgres bash -c "psql -c 'create database test_db;'"
-            - service postgresql start && su postgres bash -c "psql -c "\""alter user postgres with password 'postgres';"\"""
-            - apt-get install -y software-properties-common python-software-properties
-            - add-apt-repository ppa:deadsnakes/ppa -y
-            - apt-get update && apt-get install -y python3.6 python-setuptools python3.6-dev
-            - curl https://bootstrap.pypa.io/get-pip.py | python3.6
-            - pip3 install --upgrade setuptools
-            - pip3 install -r ./requirements.txt
+      - s3:
           scripts:
-            - service postgresql start
-            - cd /code/mysite && POSTGRES_HOST=localhost POSTGRES_USER=postgres POSTGRES_PASSWORD=postgres POSTGRES_DB=test_db coverage run ./manage.py test --verbosity 2 && coverage report --fail-under=30
+            - mkdir user-pics
+            - touch user-pics/filename2
+            - squash-cmd--aws-s3-upload:
+                bucket: tfm-test-bucket
+                region: us-east-1
+                from_folder: user-pics
+                action: download
+                arguments: |
+                 --quiet  \
+                 --cache-control "max-age=11300"
+            - squash-cmd--aws-s3-upload:
+                bucket: tfm-test-bucket
+                region: us-east-1
+                from_folder: user-pics
+                to_folder: test-upload
+                arguments: |
+                 --quiet  \
+                 --cache-control "max-age=11300"
