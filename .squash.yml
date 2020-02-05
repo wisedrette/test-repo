@@ -19,3 +19,4 @@ deployments:
           depends_on_group: api
           scripts:
             - ls -la
+
