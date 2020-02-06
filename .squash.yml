@@ -19,8 +19,7 @@ deployments:
     auto_deploy_on_commits: true
     build_policy:
       restrict_branches: config, build_policy_pr
-      triggers: 
-        - commit
+      triggers: pr
     pipelines:
       - website:
           scripts:
