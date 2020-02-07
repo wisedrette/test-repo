@@ -1,6 +1,6 @@
 deployments:
   pipelines:
-    dockerimage: ubuntu:trusty
+    dockerimage: nginx:latest
     build_policy:
       triggers: pr
     auto_deploy_on_commits: true
