@@ -2,7 +2,7 @@ deployments:
   pipelines:
     dockerimage: nginx:latest
     build_policy:
-      triggers: pr, commit
+      triggers: pr
     pipelines:
       - website:
           dockerimage: ubuntu:xenial
