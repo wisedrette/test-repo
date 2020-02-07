@@ -3,6 +3,7 @@ deployments:
     dockerimage: ubuntu:trusty
     build_policy:
       triggers: pr
+    auto_deploy_on_commits: true
     pipelines:
       - website:
           dockerimage: ubuntu:xenial
