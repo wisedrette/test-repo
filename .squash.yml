@@ -9,6 +9,7 @@ deployments:
           build_policy:
             triggers: 
               - pr
+              - commit
           dockerimage: ubuntu:xenial
           build_steps:
             - apt-get update && apt-get install -y git curl
