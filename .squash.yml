@@ -7,6 +7,6 @@ deployments:
       - website:
           dockerimage: ubuntu:xenial
           build_steps:
-            - apt-get update && apt-get install -y git curl
+            - ls -la
           scripts:
             - ls -la
