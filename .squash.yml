@@ -18,7 +18,7 @@ deployments:
     dockerimage: nginx
     auto_deploy_on_commits: true
     build_policy:
-      restrict_branches: config, build_policy_pr
+      restrict_branches: config
       triggers: pr
     pipelines:
       - website:
