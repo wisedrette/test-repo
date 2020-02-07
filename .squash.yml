@@ -2,8 +2,7 @@ deployments:
   pipelines:
     dockerimage: nginx:latest
     build_policy:
-      triggers: pr
-    auto_deploy_on_commits: true
+      triggers: pr, commit
     pipelines:
       - website:
           dockerimage: ubuntu:xenial
