@@ -1,12 +1,7 @@
 deployments:
   pipelines:
     dockerimage: nginx:latest
-    build_policy:
-      triggers: commit, pr
     pipelines:
       - website:
-          dockerimage: ubuntu:xenial
-          build_steps:
-            - ls -la
           scripts:
             - ls -la
