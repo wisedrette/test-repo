@@ -1,7 +1,29 @@
 deployments:
-  pipelines:
-    dockerimage: nginx:latest
+  MyApp:
+    dockerimage: nginx
+    squash-cmd--aws-credentials:
+      aws_access_key: $ACCESS_KEY
+      aws_secret_key: $SECRET_KEY
+      region: us-east-2
     pipelines:
-      - website:
+      - Core Tests:
+          group_id: core
+          scripts:
+            - echo true
+      - API Base Tests:
+          group_id: api
+          scripts:
+            - sleep 11; ls -la
+      - API Entities:
+          group_id: api
+          scripts:
+            - sleep 11; ls -la  
+      - API Products:
+          group_id: api
+          scripts:
+            - sleep 4; ls -la              
+      - ShoppingCart Tests:
+          group_id: app
+          depends_on_group: api
           scripts:
             - ls -la
