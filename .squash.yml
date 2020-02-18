@@ -6,13 +6,14 @@ deployments:
       - CREATE_PLACEHOLDER_CONTENT=False
     dockerimage: ubuntu:18.04
     build_steps:
-      - DEBIAN_FRONTEND=noninteractive apt-get update && \\
-        apt-get install -y \\
-        software-properties-common \\
-        postgresql postgresql-contrib postgresql-10 \\
-        sudo supervisor ssh git curl locales \\
-        gcc build-essential \\
-        libfontconfig1 libfontconfig1-dev libssl-dev libpq-dev \\
+      - >
+        DEBIAN_FRONTEND=noninteractive apt-get update &&
+        apt-get install -y
+        software-properties-common
+        postgresql postgresql-contrib postgresql-10
+        sudo supervisor ssh git curl locales
+        gcc build-essential
+        libfontconfig1 libfontconfig1-dev libssl-dev libpq-dev
         python3.6 python3.6-dev python3.6-venv python3-pip
       - curl -sL https://deb.nodesource.com/setup_8.x | bash && \\
         DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs
