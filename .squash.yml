@@ -6,23 +6,23 @@ deployments:
       - CREATE_PLACEHOLDER_CONTENT=False
     dockerimage: ubuntu:18.04
     build_steps:
-      - "DEBIAN_FRONTEND=noninteractive apt-get update && \
-        apt-get install -y \
-        software-properties-common \
-        postgresql postgresql-contrib postgresql-10 \
-        sudo supervisor ssh git curl locales \
-        gcc build-essential \
-        libfontconfig1 libfontconfig1-dev libssl-dev libpq-dev \
-        python3.6 python3.6-dev python3.6-venv python3-pip"
-      - "curl -sL https://deb.nodesource.com/setup_8.x | bash && \
-        DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs"
+      - DEBIAN_FRONTEND=noninteractive apt-get update && \\
+        apt-get install -y \\
+        software-properties-common \\
+        postgresql postgresql-contrib postgresql-10 \\
+        sudo supervisor ssh git curl locales \\
+        gcc build-essential \\
+        libfontconfig1 libfontconfig1-dev libssl-dev libpq-dev \\
+        python3.6 python3.6-dev python3.6-venv python3-pip
+      - curl -sL https://deb.nodesource.com/setup_8.x | bash && \\
+        DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs
       - COPY . /code
       - WORKDIR /code
-      - "service postgresql start && \
-        sudo -u postgres psql -U postgres -c "CREATE USER path WITH PASSWORD 'path';" && \
-        sudo -u postgres psql -U postgres -c "CREATE DATABASE pathdb OWNER path;" && \
-        echo "127.0.0.1 db" >> /etc/hosts && \
-        pg_isready --dbname postgres://path:path@db/pathdb"
+      - service postgresql start && \\
+        sudo -u postgres psql -U postgres -c "CREATE USER path WITH PASSWORD 'path';" && \\
+        sudo -u postgres psql -U postgres -c "CREATE DATABASE pathdb OWNER path;" && \\
+        echo "127.0.0.1 db" >> /etc/hosts && \\
+        pg_isready --dbname postgres://path:path@db/pathdb
       - python3 -m venv venv
     post_build_steps:
       - cd /code
