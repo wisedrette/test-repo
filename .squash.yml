@@ -29,7 +29,7 @@ deployments:
         pg_isready --dbname postgres://path:path@db/pathdb
       - python3 -m venv venv
     post_build_steps:
-      - cd /code
+      - ls -la /code/venv
     launch_steps:
       - service postgresql start -w
       - sleep 5
