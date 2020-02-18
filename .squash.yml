@@ -20,7 +20,6 @@ deployments:
         DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs
       - COPY . /code
       - WORKDIR /code
-      - "cd /code && ls -la"
       - >
         service postgresql start &&
         sudo -u postgres psql -U postgres -c "CREATE USER path WITH PASSWORD 'path';" &&
