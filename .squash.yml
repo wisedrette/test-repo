@@ -22,4 +22,4 @@ deployments:
       - cd /code
       - ls -la
     copy_files_build_process:
-      - /assets/.dockerignore ~/code/.dockerignore
+      /assets/.dockerignore ~/code/.dockerignore
