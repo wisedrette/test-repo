@@ -18,7 +18,6 @@ deployments:
       - >
         curl -sL https://deb.nodesource.com/setup_8.x | bash &&
         DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs
-      - COPY . /code
       - WORKDIR /code
       - >
         service postgresql start &&
