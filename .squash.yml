@@ -19,6 +19,7 @@ deployments:
         curl -sL https://deb.nodesource.com/setup_8.x | bash &&
         DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs
       - WORKDIR /code
+      - 'echo "PWD IN BUILD STEPS: $PWD"'
       - >
         service postgresql start &&
         sudo -u postgres psql -U postgres -c "CREATE USER path WITH PASSWORD 'path';" &&
