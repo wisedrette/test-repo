@@ -26,6 +26,7 @@ deployments:
         echo "127.0.0.1 db" >> /etc/hosts &&
         pg_isready --dbname postgres://path:path@db/pathdb
       - python3 -m venv venv
+      - ls -la
     post_build_steps:
       - ls -la /code/venv
     launch_steps:
