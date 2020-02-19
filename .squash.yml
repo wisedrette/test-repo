@@ -29,6 +29,7 @@ deployments:
       - ls -la
     post_build_steps:
       - ls -la
+      - python3 -m venv venv
       - ls -la /code/venv
     launch_steps:
       - service postgresql start -w
