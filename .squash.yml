@@ -12,6 +12,8 @@ deployments:
           scripts:
             - mkdir user-pics
             - touch user-pics/filename2
+            - ls -la user-pics
+            - ls -la
             - squash-cmd--aws-s3-upload:
                 bucket: tfm-test-bucket
                 region: us-east-1
@@ -20,6 +22,8 @@ deployments:
                 arguments: |
                  --quiet  \
                  --cache-control "max-age=11300"
+            - ls -la user-pics
+            - ls -la
             - squash-cmd--aws-s3-upload:
                 bucket: tfm-test-bucket
                 region: us-east-1
