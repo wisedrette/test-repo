@@ -7,6 +7,8 @@ deployments:
       region: us-east-2
     pipelines:
       - s3:
+          build_steps:
+            - ls -la
           scripts:
             - mkdir user-pics
             - touch user-pics/filename2
