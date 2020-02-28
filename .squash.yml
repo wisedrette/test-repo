@@ -19,7 +19,7 @@ deployments:
           group_id: core
           scripts:
             - sleep 5
-            - false
+            - abc
       - Production:
           depends_on_group: tests
           scripts:
