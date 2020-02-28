@@ -23,7 +23,7 @@ deployments:
                  --quiet  \
                  --cache-control "max-age=11300"
             - ls user-pics
-            - ls
+            - ls -la
             - squash-cmd--aws-s3-upload:
                 bucket: tfm-test-bucket
                 region: us-east-1
