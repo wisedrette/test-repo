@@ -13,7 +13,7 @@ deployments:
             - mkdir user-pics
             - touch user-pics/filename2
             - ls user-pics
-            - ls
+            - ls -la
             - squash-cmd--aws-s3-upload:
                 bucket: tfm-test-bucket
                 region: us-east-1
