@@ -16,7 +16,7 @@ deployments:
             - ls
             - squash-cmd--aws-s3-upload:
                 bucket: tfm-test-bucket
-                region: us-east-1
+                region: us-east-5
                 from_folder: asdaf
                 action: download
                 arguments: |
