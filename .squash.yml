@@ -17,7 +17,7 @@ deployments:
             - squash-cmd--aws-s3-upload:
                 bucket: tfm-test-bucket
                 region: us-east-1
-                from_folder: user-pics
+                from_folder: users-pics
                 action: download
                 arguments: |
                  --quiet  \
@@ -25,7 +25,7 @@ deployments:
             - ls user-pics
             - ls -la
             - squash-cmd--aws-s3-upload:
-                bucket: tfm-test-bucket
+                bucket: tfm-test-buckets
                 region: us-east-1
                 from_folder: user-pics
                 to_folder: test-upload
