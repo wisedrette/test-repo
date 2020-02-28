@@ -5,18 +5,22 @@ deployments:
       aws_access_key: $ACCESS_KEY
       aws_secret_key: $SECRET_KEY
       region: us-east-2
+    build_steps:
+      - apt-get update
     pipelines:
-      - primary:
-          group_id: api
+      - Tests:
+          group_id: tests
+          scripts:
+            - cd /code
+            - ls -la
+            - sleep 20
+            - false
+      - Core Tests:
+          group_id: core
+          scripts:
+            - sleep 5
+            - false
+      - Production:
+          depends_on_group: tests
           scripts:
             - echo true
-      - next:
-          group_id: api
-          scripts:
-            - sleep 11; ls -la
-      - dependency:
-          group_id: app
-          depends_on_group: api
-          scripts:
-            - ls -la
-
