@@ -9,18 +9,13 @@ deployments:
       - s3:
           build_steps:
             - echo
+            - ls -la /code
           scripts:
-            - mkdir user-pics
-            - touch user-pics/filename2
-            - ls user-pics
-            - ls -la
             - squash-cmd--aws-s3-upload:
                 bucket: tfm-test-bucket
                 region: us-east-1
-                from_folder: user-pics
-                action: download
+                from_folder: mysite/*
+                to_folder: /
                 arguments: |
                  --quiet  \
                  --cache-control "max-age=11300"
-            - ls user-pics
-            - ls -la
