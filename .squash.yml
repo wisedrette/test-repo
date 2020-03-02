@@ -14,7 +14,7 @@ deployments:
             - squash-cmd--aws-s3-upload:
                 bucket: tfm-test-bucket
                 region: us-east-1
-                from_folder: mysite/*
+                from_folder: "mysite/*"
                 to_folder: /
                 arguments: |
                  --quiet  \
