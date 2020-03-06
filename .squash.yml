@@ -16,9 +16,9 @@ deployments:
                 bucket: tfm-test-bucket
                 region: us-east-1
                 action: download
-                from_folder: user-pics/
-                to_folder: /code/mysite/
+                from_folder: /user-pics/
+                to_folder: /code/
                 arguments: |
                  --quiet  \
                  --cache-control "max-age=11300"
-            - ls -la /code/mysite 
+            - ls -la /code/ 
