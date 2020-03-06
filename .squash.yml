@@ -15,25 +15,9 @@ deployments:
             - squash-cmd--aws-s3-upload:
                 bucket: tfm-test-bucket
                 region: us-east-1
-                from_folder: mysite/*
-                to_folder: /
-                files_only: true
-                arguments: |
-                 --quiet  \
-                 --cache-control "max-age=11300"          
-            - squash-cmd--aws-s3-upload:
-                bucket: tfm-test-bucket
-                region: us-east-1
-                from_folder: /code/*
-                to_folder: /test-upload/
-                files_only: true
-                arguments: |
-                 --quiet
-            - squash-cmd--aws-s3-upload:
-                bucket: tfm-test-bucket
-                region: us-east-1
                 action: download
-                from_folder: /user-pics/
+                from_folder: user-pics
                 to_folder: /code/
                 arguments: --quiet
-            - ls -la /code/ 
+            - ls -la /code/
+            - ls -la /
