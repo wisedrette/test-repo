@@ -27,4 +27,5 @@ deployments:
                 action: download
                 from_folder: /user-pics/
                 to_folder: /code/
+                arguments: --quiet
             - ls -la /code/ 
