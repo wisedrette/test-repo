@@ -10,12 +10,23 @@ deployments:
           build_steps:
             - echo
             - ls -la /code
+            - cd /code
           scripts:
             - squash-cmd--aws-s3-upload:
                 bucket: tfm-test-bucket
                 region: us-east-1
-                from_folder: /code/mysite/*
+                from_folder: mysite/*
                 to_folder: /
                 arguments: |
                  --quiet  \
                  --cache-control "max-age=11300"
+            - squash-cmd--aws-s3-upload:
+                bucket: tfm-test-bucket
+                region: us-east-1
+                action: download
+                from_folder: user-pics/
+                to_folder: /code/mysite/
+                arguments: |
+                 --quiet  \
+                 --cache-control "max-age=11300"
+            - ls -la /code/mysite 
