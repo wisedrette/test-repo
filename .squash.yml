@@ -4,7 +4,7 @@ deployments:
     build_policy:
       triggers:
         - pr
-      restrict_branches: branch
+      allow_branches: master, test-branch, abc
     pipelines:
       - website:
           dockerimage: ubuntu:xenial
