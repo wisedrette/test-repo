@@ -13,6 +13,7 @@ deployments:
             - cd /code
           scripts:
             - mkdir /cp
+            - ls -la /cp
             - squash-cmd--aws-s3-upload:
                 bucket: tfm-test-bucket
                 region: us-east-1
