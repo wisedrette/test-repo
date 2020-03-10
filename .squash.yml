@@ -16,7 +16,7 @@ deployments:
                 bucket: tfm-test-bucket
                 region: us-east-1
                 action: download
-                from_folder: /user-pics/
+                from_folder: /user-pics/*
                 to_folder: /code/
                 arguments: --quiet
             - ls -la /code/
