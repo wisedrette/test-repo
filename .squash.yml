@@ -9,7 +9,7 @@ deployments:
       - s3:
           build_steps:
             - echo
-            - ls -la /code
+            - mkdir /cp
             - cd /code
           scripts:
             - squash-cmd--aws-s3-upload:
@@ -29,5 +29,33 @@ deployments:
                 files_only: true
                 arguments: |
                  --quiet
+            - squash-cmd--aws-s3-upload:
+                bucket: tfm-test-bucket
+                region: us-east-1
+                from_folder: /code/*
+                to_folder: /test-uploads
+                arguments: |
+                 --quiet
+            - squash-cmd--aws-s3-upload:
+                bucket: tfm-test-bucket
+                region: us-east-1
+                action: download
+                from_folder: /user-pics/*
+                to_folder: /code/
+                arguments: --quiet
+            - squash-cmd--aws-s3-upload:
+                bucket: tfm-test-bucket
+                region: us-east-1
+                action: download
+                from_folder: /user-pics/sub/*
+                to_folder: /cp
+                arguments: --quiet
+            - squash-cmd--aws-s3-upload:
+                bucket: tfm-test-bucket
+                region: us-east-1
+                action: download
+                from_folder: /user-pics
+                to_folder: /cp
+                arguments: --quiet                 
             - ls -la /code/
-            - ls -la /
+            - ls -la /cp
